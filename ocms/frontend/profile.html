@@ -7,6 +7,9 @@
     <title>My Learning - OCMS.IO</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
+    <script>
+        if (!localStorage.getItem('access')) window.location.href = 'login.html';
+    </script>
     <style>
         :root {
             --bg-color: #020617;
@@ -295,7 +298,7 @@
                     <h1 id="profileName">Elite Student</h1>
                     <p id="profileEmail">active_member@ocms.io</p>
                     <div class="hero-actions" style="margin-top: 2rem;">
-                        <a href="/" class="btn btn-primary">Home</a>
+                        <a href="index.html" class="btn btn-primary">Home</a>
                         <button onclick="logout()" class="btn btn-outline">Sign Out</button>
                     </div>
                 </div>
@@ -307,7 +310,7 @@
                 <h3>Insights & Growth</h3>
                 <p>Monitor your performance across the entire learning ecosystem.</p>
             </div>
-            <a href="/dashboard/" class="btn btn-outline"
+            <a href="dashboard.html" class="btn btn-outline"
                 style="border-color: var(--primary); color: var(--primary);">Open Analytics Dashboard</a>
         </section>
 
@@ -326,12 +329,16 @@
 
     <script>
         const token = localStorage.getItem('access');
-        if (!token) window.location.href = '/login/';
+
+        const getAPIUrl = (path) => {
+            const base = window.location.protocol === 'file:' ? 'http://127.0.0.1:8000' : '';
+            return base + path;
+        };
 
         async function loadProfile() {
             try {
                 // Load User Info
-                const userRes = await fetch('http://127.0.0.1:8000/api/users/me/', {
+                const userRes = await fetch(getAPIUrl('/api/users/me/'), {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 if (userRes.ok) {
@@ -343,7 +350,7 @@
                 }
 
                 // Load Enrollments
-                const enrollRes = await fetch('http://127.0.0.1:8000/api/enrollments/my/', {
+                const enrollRes = await fetch(getAPIUrl('/api/enrollments/my/'), {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 if (enrollRes.ok) {
@@ -356,7 +363,7 @@
                             <div style="grid-column: 1/-1; text-align: center; padding: 4rem; background: var(--card-bg); border-radius: 32px; border: 1px solid var(--glass-border);">
                                 <h3 style="margin-bottom: 1rem;">No active courses</h3>
                                 <p style="color: var(--text-dim); margin-bottom: 2rem;">Start your journey by exploring our premium library.</p>
-                                <a href="/courses/" class="btn btn-primary" style="display: inline-flex;">Explore Courses</a>
+                                <a href="courses.html" class="btn btn-primary" style="display: inline-flex;">Explore Courses</a>
                             </div>
                         `;
                         return;
@@ -367,8 +374,15 @@
                         const progress = en.total_lectures > 0 ? Math.round((en.completed_lectures / en.total_lectures) * 100) : 0;
                         const card = document.createElement('div');
                         card.className = 'course-card';
+
+                        // Safety checks for course data structure
+                        const courseId = en.course ? en.course.id : en.course_id;
+                        const courseTitle = en.course ? en.course.title : 'Research Project';
+                        const thumb = (en.course && en.course.thumbnail_url) ? en.course.thumbnail_url : 'https://images.unsplash.com/photo-1639322537228-f710d846310a?w=800&auto=format&fit=crop&q=60';
+
                         card.innerHTML = `
-                            <h3>${en.course.title}</h3>
+                            <div class="course-card-thumb" style="background-image: url('${thumb}'); background-size: cover; background-position: center; height: 120px; border-radius: 20px; margin-bottom: 1.5rem;"></div>
+                            <h3>${courseTitle}</h3>
                             <div class="course-stats">
                                 <span>Curriculum Progress</span>
                                 <span>${en.completed_lectures}/${en.total_lectures} Lessons</span>
@@ -378,7 +392,7 @@
                             </div>
                             <div class="card-actions">
                                 <div class="percent-badge">${progress}%</div>
-                                <a href="/course-detail/?id=${en.course.id}" class="continue-btn">Continue Journey</a>
+                                <a href="course_detail.html?id=${courseId}" class="continue-btn">Continue Journey</a>
                             </div>
                         `;
                         list.appendChild(card);
@@ -391,7 +405,7 @@
 
         function logout() {
             localStorage.clear();
-            window.location.href = '/';
+            window.location.href = 'index.html';
         }
 
         loadProfile();

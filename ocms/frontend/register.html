@@ -214,34 +214,39 @@
             </form>
 
             <div class="card-footer">
-                Returning agent? <a href="/login/">Sign In</a>
+                Returning agent? <a href="login.html">Sign In</a>
             </div>
         </div>
     </div>
 
     <script>
+        const getAPIUrl = (path) => {
+            const base = window.location.protocol === 'file:' ? 'http://127.0.0.1:8000' : '';
+            return base + path;
+        };
+
         document.getElementById('registerForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const errorDiv = document.getElementById('errorMsg');
             errorDiv.style.display = 'none';
 
             const data = {
-                username: document.getElementById('email').value,
                 email: document.getElementById('email').value,
+                username: document.getElementById('email').value, // Using email as username for now, as no username input exists
                 full_name: document.getElementById('fullName').value,
-                password: document.getElementById('password').value,
-                role: 'student'
+                role: 'student', // Defaulting role to 'student' as no role input exists
+                password: document.getElementById('password').value
             };
 
             try {
-                const response = await fetch('http://127.0.0.1:8000/api/register/', {
+                const response = await fetch(getAPIUrl('/api/register/'), {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(data)
                 });
 
                 if (response.ok) {
-                    window.location.href = '/login/?registered=true';
+                    window.location.href = 'login.html?registered=true';
                 } else {
                     const err = await response.json();
                     errorDiv.textContent = Object.values(err).flat().join(' ');

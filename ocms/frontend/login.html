@@ -232,7 +232,7 @@
             </form>
 
             <div class="card-footer">
-                New researcher? <a href="/register/">Create Account</a>
+                New researcher? <a href="register.html">Create Account</a>
             </div>
         </div>
     </div>
@@ -245,6 +245,11 @@
             document.getElementById('loginSubtitle').style.color = '#10b981';
         }
 
+        const getAPIUrl = (path) => {
+            const base = window.location.protocol === 'file:' ? 'http://127.0.0.1:8000' : '';
+            return base + path;
+        };
+
         document.getElementById('loginForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const errorDiv = document.getElementById('errorMsg');
@@ -256,7 +261,7 @@
             };
 
             try {
-                const response = await fetch('http://127.0.0.1:8000/api/token/', {
+                const response = await fetch(getAPIUrl('/api/token/'), {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(data)
@@ -266,7 +271,7 @@
                     const tokens = await response.json();
                     localStorage.setItem('access', tokens.access);
                     localStorage.setItem('refresh', tokens.refresh);
-                    window.location.href = '/';
+                    window.location.href = 'index.html';
                 } else {
                     errorDiv.textContent = 'Invalid credentials. Access denied.';
                     errorDiv.style.display = 'block';

@@ -506,13 +506,14 @@
 <body>
     <nav>
         <div class="container">
-            <a href="/" class="logo">OCMS.IO</a>
+            <a href="index.html" class="logo">OCMS.IO</a>
             <div class="nav-links" id="navLinks">
-                <a href="/courses/">Courses</a>
-                <a href="/dashboard/" id="dashboardLink" style="display: none;">Analytics</a>
-                <a href="/login/" id="loginLink">Sign In</a>
-                <a href="/register/" id="registerLink" class="auth-btn">Join Library</a>
-                <a href="/profile/" id="profileLink" style="display: none;">My Profile</a>
+                <a href="courses.html">Courses</a>
+                <a href="dashboard.html" id="dashboardLink" style="display: none;">Global Metrics</a>
+                <a href="login.html" id="loginLink">Sign In</a>
+                <a href="register.html" id="registerLink" class="auth-btn">Join Library</a>
+                <a href="profile.html" id="profileLink"
+                    style="display: none; font-weight: 700; color: var(--primary);">My Learning</a>
                 <a href="#" id="logoutLink" style="display: none; color: #ef4444;">Sign Out</a>
             </div>
         </div>
@@ -526,8 +527,8 @@
                     expert instruction.</p>
 
                 <div class="hero-btns">
-                    <a href="/courses/" class="btn-primary">Explore Courses</a>
-                    <a href="/dashboard/" class="btn-secondary" id="analyticsBtn">View Impact</a>
+                    <a href="courses.html" class="btn-primary">Explore Courses</a>
+                    <a href="dashboard.html" class="btn-secondary" id="analyticsBtn">View Impact</a>
                 </div>
 
                 <div class="trusted-by">
@@ -628,32 +629,39 @@
         });
 
         // Fetch Live Stats for Cards
+        const getAPIUrl = (path) => {
+            const base = window.location.protocol === 'file:' ? 'http://127.0.0.1:8000' : '';
+            return base + path;
+        };
+
         async function loadHomeContent() {
             try {
                 // Fetch Stats
-                const statsRes = await fetch('http://127.0.0.1:8000/api/analytics/');
+                const statsRes = await fetch(getAPIUrl('/api/analytics/'));
                 if (statsRes.ok) {
                     const data = await statsRes.json();
                     document.getElementById('totalUsers').textContent = data.summary.total_users;
-                    document.getElementById('totalCourses').textContent = data.summary.total_courses + '+';
+                    document.getElementById('totalCourses').textContent = data.summary.total_courses;
                     document.getElementById('totalEnrollments').textContent = data.summary.total_hours + 'h';
                 }
 
                 // Fetch Categories
-                const catRes = await fetch('http://127.0.0.1:8000/api/categories/');
+                const catRes = await fetch(getAPIUrl('/api/categories/'));
                 if (catRes.ok) {
-                    const cats = await catRes.json();
+                    const result = await catRes.json();
+                    const cats = Array.isArray(result) ? result : (result.results || []);
                     const catList = document.getElementById('categoryList');
-                    catList.innerHTML = cats.results.map(c => `<a href="/courses/?category=${c.id}" class="category-chip">${c.name}</a>`).join('');
+                    catList.innerHTML = cats.map(c => `<span class="category-pill">${c.name}</span>`).join('');
                 }
 
                 // Fetch Recent Courses
-                const courseRes = await fetch('http://127.0.0.1:8000/api/courses/');
+                const courseRes = await fetch(getAPIUrl('/api/courses/'));
                 if (courseRes.ok) {
-                    const courses = await courseRes.json();
+                    const result = await courseRes.json();
+                    const courses = Array.isArray(result) ? result : (result.results || []);
                     const grid = document.getElementById('featuredCourses');
-                    grid.innerHTML = courses.results.slice(0, 3).map(c => `
-                        <a href="/course-detail/?id=${c.id}" class="preview-card">
+                    grid.innerHTML = courses.slice(0, 3).map(c => `
+                        <a href="course_detail.html?id=${c.id}" class="preview-card">
                             <div class="card-preview-img" style="background-image: url('${c.thumbnail_url}'); background-size: cover; background-position: center;">
                                 <span class="price-badge">$${c.price}</span>
                             </div>

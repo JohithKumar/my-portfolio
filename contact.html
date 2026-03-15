@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Johith Kumar</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        input,
+        textarea {
+            background: var(--dark-surface);
+            border: 1px solid var(--glass-border);
+            padding: 1rem;
+            border-radius: 8px;
+            color: white;
+            font-family: inherit;
+        }
+
+        input:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <a href="index.html" class="logo">RVNRJK</a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="skills.html">Skills</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="education.html">Education</a></li>
+            <li><a href="certificates.html">Certificates</a></li>
+            <li><a href="resume.html">Resume</a></li>
+            <li><a href="contact.html" class="active">Contact</a></li>
+        </ul>
+    </nav>
+
+    <header class="page-header">
+        <div class="container">
+            <h1>Get In Touch</h1>
+            <p class="subtitle">Let's build something exceptional together.</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <div style="display: flex; justify-content: center; align-items: center; min-height: 40vh;">
+            <div class="card reveal" style="max-width: 600px; width: 100%;">
+                <h3 style="text-align: center; margin-bottom: 2rem; color: var(--primary);">Contact Details</h3>
+                <p class="subtitle" style="margin-bottom: 2.5rem; text-align: center;">Available for internships and full-time opportunities. Reach out via any of the platforms below.</p>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                    <div class="contact-info-item" style="background: rgba(255,255,255,0.03); padding: 1.5rem; border-radius: 16px; border: 1px solid var(--glass-border);">
+                        <p style="color: var(--primary); font-weight: 700; margin-bottom: 0.5rem; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;">Email</p>
+                        <p style="word-break: break-all;">rachamadugujohith@gmail.com</p>
+                    </div>
+
+                    <div class="contact-info-item" style="background: rgba(255,255,255,0.03); padding: 1.5rem; border-radius: 16px; border: 1px solid var(--glass-border);">
+                        <p style="color: var(--primary); font-weight: 700; margin-bottom: 0.5rem; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;">Mobile</p>
+                        <p>+91 9182180743</p>
+                    </div>
+
+                    <div class="contact-info-item" style="background: rgba(255,255,255,0.03); padding: 1.5rem; border-radius: 16px; border: 1px solid var(--glass-border); grid-column: span 2; display: flex; justify-content: space-around; align-items: center;">
+                        <div>
+                            <p style="color: var(--primary); font-weight: 700; margin-bottom: 0.5rem; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; text-align: center;">Professional Links</p>
+                            <div style="display: flex; gap: 2rem;">
+                                <a href="https://linkedin.com/in/johith-kumar" class="btn btn-outline" style="padding: 0.6rem 1.5rem; font-size: 0.9rem;">LinkedIn</a>
+                                <a href="https://github.com/JohithKumar" class="btn btn-outline" style="padding: 0.6rem 1.5rem; font-size: 0.9rem;">GitHub</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p style="color: var(--text-slate);">&copy; 2024 R.V.N.R. Johith Kumar.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

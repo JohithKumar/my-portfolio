@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume | Johith Kumar</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .resume-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--dark-surface);
+            padding: 3rem;
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .resume-header {
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 2rem;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .resume-section {
+            margin-bottom: 2.5rem;
+        }
+
+        .resume-section h3 {
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--primary);
+            padding-left: 15px;
+        }
+
+        .resume-item {
+            margin-bottom: 1.5rem;
+        }
+
+        .resume-item h4 {
+            font-size: 1.3rem;
+            color: var(--text-white);
+        }
+
+        .resume-meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--secondary);
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .resume-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .resume-list li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 0.5rem;
+            color: var(--text-slate);
+        }
+
+        .resume-list li::before {
+            content: "•";
+            color: var(--primary);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .skill-category h5 {
+            color: var(--text-white);
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        @media print {
+
+            nav,
+            footer,
+            .btn-group {
+                display: none;
+            }
+
+            body {
+                background: white;
+                color: black;
+            }
+
+            .resume-container {
+                border: none;
+                box-shadow: none;
+                padding: 0;
+                background: white;
+            }
+
+            .resume-section h3 {
+                color: black;
+                border-color: black;
+            }
+
+            .resume-meta {
+                color: #333;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <a href="index.html" class="logo">RVNRJK</a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="skills.html">Skills</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="education.html">Education</a></li>
+            <li><a href="certificates.html">Certificates</a></li>
+            <li><a href="resume.html" class="active">Resume</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <header class="page-header">
+        <div class="container">
+            <h1>Professional Resume</h1>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="resume-container">
+            <div class="resume-header">
+                <div>
+                    <h2 style="font-size: 2.5rem; margin-bottom: 0.5rem;">R.V.N.R. Johith Kumar</h2>
+                    <p style="color: var(--text-slate);">Data Analyst | Business Intelligence Enthusiast</p>
+                </div>
+                <div style="text-align: right; color: var(--text-slate); font-size: 0.9rem;">
+                    <p>rachamadugujohith@gmail.com</p>
+                    <p>+91 9182180743</p>
+                    <p>linkedin.com/in/johith-kumar</p>
+                </div>
+            </div>
+
+            <div class="resume-section reveal stagger-1">
+                <h3>Internship Experience</h3>
+                <div class="resume-item">
+                    <div class="resume-meta">
+                        <span>World Currency Converter - Web Application</span>
+                        <span>Nov '25 – Dec '25</span>
+                    </div>
+                    <ul class="resume-list">
+                        <li>Engineered a responsive web-based currency converter featuring real-time conversion using
+                            live exchange rate APIs.</li>
+                        <li>Integrated API-driven data handling with local storage caching and automated refresh.</li>
+                        <li>Designed an intuitive, mobile-first UI with dynamic currency swapping.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="resume-section reveal stagger-2">
+                <h3>Key Projects</h3>
+                <div class="resume-item">
+                    <div class="resume-meta">
+                        <span>Data-Driven Insights on US Mortality Trends</span>
+                        <span>Mar '25 – Apr '25</span>
+                    </div>
+                    <ul class="resume-list">
+                        <li>Cleaned and validated large datasets using Python, Pandas, and NumPy.</li>
+                        <li>Created heatmaps and correlation maps using Matplotlib and Seaborn to identify health
+                            trends.</li>
+                        <li>Documented full workflow in Jupyter Notebook for reproducibility.</li>
+                    </ul>
+                </div>
+                <div class="resume-item">
+                    <div class="resume-meta">
+                        <span>Excel Analytics & Dashboarding</span>
+                        <span>Mar '25 – Apr '25</span>
+                    </div>
+                    <ul class="resume-list">
+                        <li>Optimized data processing efficiency using advanced Excel functions and structured tables.
+                        </li>
+                        <li>Developed interactive dashboards achieving 95% accuracy in trend tracking.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="resume-section reveal stagger-3">
+                <h3>Education</h3>
+                <div class="resume-item">
+                    <div class="resume-meta">
+                        <span>Lovely Professional University</span>
+                        <span>2023 - Present</span>
+                    </div>
+                    <p style="color: var(--text-white); font-weight: 600;">B.Tech in Computer Science and Engineering
+                    </p>
+                    <p style="color: var(--text-slate);">CGPA: 6.2</p>
+                </div>
+            </div>
+
+            <div class="resume-section reveal stagger-4">
+                <h3>Technical Skills</h3>
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <h5>Languages</h5>
+                        <p style="color: var(--text-slate);">C++, Python, Java, JavaScript, DSA</p>
+                    </div>
+                    <div class="skill-category">
+                        <h5>Web Technologies</h5>
+                        <p style="color: var(--text-slate);">HTML5, CSS3, REST APIs, DOM Manipulation</p>
+                    </div>
+                    <div class="skill-category">
+                        <h5>Data Science</h5>
+                        <p style="color: var(--text-slate);">Pandas, NumPy, TensorFlow, EDA, SQL</p>
+                    </div>
+                    <div class="skill-category">
+                        <h5>Tools</h5>
+                        <p style="color: var(--text-slate);">Git, GitHub, Power BI, Advanced Excel</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="resume-section reveal stagger-5">
+                <h3>Certifications</h3>
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <h5>Cloud Computing</h5>
+                        <p style="color: var(--text-slate);">NPTEL Certified</p>
+                    </div>
+                    <div class="skill-category">
+                        <h5>Programming Using C++</h5>
+                        <p style="color: var(--text-slate);">Infosys Springboard</p>
+                    </div>
+                    <div class="skill-category">
+                        <h5>Computational Theory</h5>
+                        <p style="color: var(--text-slate);">Infosys Springboard</p>
+                    </div>
+                    <div class="skill-category">
+                        <h5>Peer-to-Peer Protocols & LAN</h5>
+                        <p style="color: var(--text-slate);">Coursera</p>
+                    </div>
+                    <div class="skill-category">
+                        <h5>ChatGPT-4 Prompt Engineering</h5>
+                        <p style="color: var(--text-slate);">Infosys Springboard</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="resume-section reveal stagger-6" style="margin-bottom: 0;">
+                <h3>Achievements</h3>
+                <ul class="resume-list">
+                    <li>Secured a place in IFH (Oct '23).</li>
+                    <li>Selected as one of the Top 10 writers in India.</li>
+                </ul>
+            </div>
+
+            <div class="btn-group" style="margin-top: 3rem; text-align: center;">
+                <button onclick="window.print()" class="btn btn-primary">Download PDF / Print Resume</button>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p style="color: var(--text-slate);">&copy; 2024 R.V.N.R. Johith Kumar.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

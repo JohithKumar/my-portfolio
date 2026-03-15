@@ -197,20 +197,25 @@
         const urlParams = new URLSearchParams(window.location.search);
         const courseId = urlParams.get('course_id');
 
-        if (!courseId) window.location.href = '/courses/';
+        if (!courseId) window.location.href = 'courses.html';
 
-        document.getElementById('backToPlayer').href = `/course-detail/?id=${courseId}`;
+        document.getElementById('backToPlayer').href = `course_detail.html?id=${courseId}`;
+
+        const getAPIUrl = (path) => {
+            const base = window.location.protocol === 'file:' ? 'http://127.0.0.1:8000' : '';
+            return base + path;
+        };
 
         async function fetchReviews() {
             try {
                 // Fetch course info for the title
-                const courseRes = await fetch(`http://127.0.0.1:8000/api/courses/${courseId}/`);
+                const courseRes = await fetch(getAPIUrl(`/api/courses/${courseId}/`));
                 if (courseRes.ok) {
                     const course = await courseRes.json();
                     document.getElementById('courseTitle').innerHTML = `${course.title} <span>Reviews</span>`;
                 }
 
-                const response = await fetch(`http://127.0.0.1:8000/api/reviews/?course_id=${courseId}`);
+                const response = await fetch(getAPIUrl(`/api/reviews/?course_id=${courseId}`));
                 if (response.ok) {
                     const data = await response.json();
                     const reviews = data.results || [];

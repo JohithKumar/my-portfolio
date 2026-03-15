@@ -8,6 +8,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        if (!localStorage.getItem('access')) window.location.href = 'login.html';
+    </script>
     <style>
         :root {
             --bg-color: #020617;
@@ -357,13 +360,13 @@
 
     <div class="container">
         <nav>
-            <a href="/" class="back-link">
+            <a href="index.html" class="back-link">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                     <path d="m15 18-6-6 6-6" />
                 </svg>
                 Return to Home
             </a>
-            <a href="/" class="logo">Intelligence</a>
+            <a href="index.html" class="logo">OCMS.IO</a>
         </nav>
 
         <header>
@@ -371,7 +374,12 @@
                 <h1>Execution Metrics</h1>
                 <p>Real-time telemetry and engagement distribution.</p>
             </div>
-            <button class="refresh-btn" onclick="location.reload()">Sync Data</button>
+            <div style="display: flex; gap: 1rem;">
+                <a href="profile.html" class="refresh-btn"
+                    style="text-decoration: none; background: var(--primary); border-color: var(--primary);">Go to My
+                    Learning</a>
+                <button class="refresh-btn" onclick="location.reload()">Sync Data</button>
+            </div>
         </header>
 
         <div class="stats-overview">
@@ -447,15 +455,19 @@
 
     <script>
         const token = localStorage.getItem('access');
-        if (!token) window.location.href = '/login/';
 
         Chart.defaults.color = 'rgba(148, 163, 184, 0.7)';
         Chart.defaults.font.family = "'Outfit', sans-serif";
         Chart.defaults.font.size = 13;
 
+        const getAPIUrl = (path) => {
+            const base = window.location.protocol === 'file:' ? 'http://127.0.0.1:8000' : '';
+            return base + path;
+        };
+
         async function loadAnalytics() {
             try {
-                const res = await fetch('http://127.0.0.1:8000/api/analytics/', {
+                const res = await fetch(getAPIUrl('/api/analytics/'), {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
 

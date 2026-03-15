@@ -7,6 +7,9 @@
     <title>Course Player - OCMS.IO</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
+    <script>
+        if (!localStorage.getItem('access')) window.location.href = 'login.html';
+    </script>
     <style>
         :root {
             --bg-color: #020617;
@@ -230,7 +233,56 @@
             font-size: 1.1rem;
             line-height: 1.8;
             max-width: 900px;
+            margin-bottom: 2rem;
+        }
+
+        /* Course Progress Bar */
+        .course-progress-container {
+            max-width: 900px;
             margin-bottom: 4rem;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .progress-bar-bg {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            width: 0%;
+            transition: width 0.5s ease;
+            box-shadow: 0 0 15px var(--primary-glow);
+        }
+
+        .check-btn {
+            padding: 4px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: var(--text-dim);
+        }
+
+        .check-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        .check-btn.completed {
+            color: var(--accent);
         }
 
         /* Reviews Section */
@@ -410,7 +462,7 @@
     <div class="layout">
         <aside class="sidebar">
             <div class="sidebar-header">
-                <a href="/" class="back-link">
+                <a href="index.html" class="back-link">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
                         stroke-linecap="round" stroke-linejoin="round">
                         <path d="m15 18-6-6 6-6" />
@@ -435,65 +487,90 @@
                 </div>
             </div>
 
-            <div class="content-body">
-                <section class="course-meta">
-                    <h1 id="courseTitle">Technical Architecture</h1>
-                    <p id="courseDesc">Deep dive into the core foundations and advanced patterns defined in this
-                        industry-leading curriculum.</p>
-                </section>
+            <section class="course-meta">
+                <div style="margin-bottom: 2rem;">
+                    <span
+                        style="color: var(--primary); font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px;">Now
+                        Playing</span>
+                    <h1 id="activeLectureTitle" style="font-size: 2.5rem; margin-top: 0.5rem; letter-spacing: -1.5px;">
+                        Welcome to the Course</h1>
+                </div>
 
-                <section class="reviews-section">
-                    <div class="section-header">
-                        <h2>Student Feedback</h2>
-                        <div class="line"></div>
+                <h2 id="courseTitle"
+                    style="font-size: 1.1rem; color: var(--text-dim); font-weight: 600; margin-bottom: 0.5rem;">
+                    Technical Architecture</h2>
+                <p id="courseDesc">Deep dive into the core foundations and advanced patterns defined in this
+                    industry-leading curriculum.</p>
+
+                <div class="course-progress-container" id="courseProgressWidget" style="display: none;">
+                    <div class="progress-header">
+                        <span
+                            style="font-weight: 700; font-size: 0.9rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px;">Overall
+                            Completion</span>
+                        <span id="progressPercent" style="font-weight: 800; color: var(--primary);">0%</span>
                     </div>
-
-                    <div class="reviews-grid" id="reviewsList">
-                        <!-- Reviews loaded here -->
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill" id="progressBar"></div>
                     </div>
+                </div>
+            </section>
 
-                    <div style="text-align: center; margin-bottom: 4rem;">
-                        <a id="allReviewsLink" href="#" class="btn-secondary"
-                            style="padding: 1rem 2rem; border-radius: 12px; font-weight: 700;">View Global Feedback
-                            Hub</a>
-                    </div>
+            <section class="reviews-section">
+                <div class="section-header">
+                    <h2>Student Feedback</h2>
+                    <div class="line"></div>
+                </div>
 
-                    <div id="addReviewForm" style="display: none;">
-                        <div class="form-card">
-                            <h3>Share Your Experience</h3>
-                            <div class="form-group">
-                                <label>Star Rating</label>
-                                <select id="reviewRating">
-                                    <option value="5">★★★★★ Exceptional</option>
-                                    <option value="4">★★★★☆ Recommended</option>
-                                    <option value="3">★★★☆☆ Average</option>
-                                    <option value="2">★★☆☆☆ Poor</option>
-                                    <option value="1">★☆☆☆☆ Terrible</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Your Thoughts</label>
-                                <textarea id="reviewComment" rows="4"
-                                    placeholder="What did you learn? How did this course help your career?"></textarea>
-                            </div>
-                            <button class="submit-btn" onclick="submitReview()">Post Review</button>
+                <div class="reviews-grid" id="reviewsList">
+                    <!-- Reviews loaded here -->
+                </div>
+
+                <div style="text-align: center; margin-bottom: 4rem;">
+                    <a id="allReviewsLink" href="#" class="btn-secondary"
+                        style="padding: 1rem 2rem; border-radius: 12px; font-weight: 700;">View Global Feedback
+                        Hub</a>
+                </div>
+
+                <div id="addReviewForm" style="display: none;">
+                    <div class="form-card">
+                        <h3>Share Your Experience</h3>
+                        <div class="form-group">
+                            <label>Star Rating</label>
+                            <select id="reviewRating">
+                                <option value="5">★★★★★ Exceptional</option>
+                                <option value="4">★★★★☆ Recommended</option>
+                                <option value="3">★★★☆☆ Average</option>
+                                <option value="2">★★☆☆☆ Poor</option>
+                                <option value="1">★☆☆☆☆ Terrible</option>
+                            </select>
                         </div>
+                        <div class="form-group">
+                            <label>Your Thoughts</label>
+                            <textarea id="reviewComment" rows="4"
+                                placeholder="What did you learn? How did this course help your career?"></textarea>
+                        </div>
+                        <button class="submit-btn" onclick="submitReview()">Post Review</button>
                     </div>
-                </section>
-            </div>
-        </main>
+                </div>
+            </section>
+    </div>
+    </main>
     </div>
 
     <script>
         const token = localStorage.getItem('access');
-        if (!token) window.location.href = '/login/';
 
         const urlParams = new URLSearchParams(window.location.search);
         const courseId = urlParams.get('id');
 
+        const getAPIUrl = (path) => {
+            const base = window.location.protocol === 'file:' ? 'http://127.0.0.1:8000' : '';
+            return base + path;
+        };
+
         async function loadCourse(id) {
             try {
-                const response = await fetch(`http://127.0.0.1:8000/api/courses/${id}/full/`, {
+                const response = await fetch(getAPIUrl(`/api/courses/${id}/full/`), {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
 
@@ -504,7 +581,7 @@
                     document.getElementById('courseDesc').textContent = course.description;
 
                     renderReviews(course);
-                    document.getElementById('allReviewsLink').href = `/reviews/?course_id=${course.id}`;
+                    document.getElementById('allReviewsLink').href = `reviews.html?course_id=${course.id}`;
 
                     if (course.thumbnail_url) {
                         const placeholder = document.getElementById('playerPlaceholder');
@@ -531,11 +608,17 @@
 
                     document.getElementById('addReviewForm').style.display = 'block';
 
+                    let totalLectures = 0;
+                    let completedCount = 0;
+
                     let firstLectureUrl = null;
                     course.modules.forEach((mod, index) => {
                         const modNum = String(index + 1).padStart(2, '0');
                         let lecturesHtml = '';
                         mod.lectures.forEach(lecture => {
+                            totalLectures++;
+                            if (lecture.completed) completedCount++;
+
                             if (!firstLectureUrl && lecture.video_url) firstLectureUrl = lecture.video_url;
 
                             let typeIcon = '🎬';
@@ -543,7 +626,7 @@
                             if (lecture.lecture_type === 'quiz') typeIcon = '📝';
 
                             lecturesHtml += `
-                                <div class="lecture-item" data-url="${lecture.video_url}">
+                                <div class="lecture-item" data-url="${lecture.video_url}" data-resources="${lecture.resources_url || ''}" data-id="${lecture.id}">
                                     <div class="lecture-info">
                                         <span class="lecture-name">${lecture.title}</span>
                                         <div style="display: flex; align-items: center; gap: 0.5rem;">
@@ -551,23 +634,46 @@
                                             <span class="lecture-duration">${lecture.duration || '15'} minutes</span>
                                         </div>
                                     </div>
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+                                    <div class="check-btn ${lecture.completed ? 'completed' : ''}" onclick="event.stopPropagation(); toggleComplete(${lecture.id}, this)">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>
+                                    </div>
                                 </div>`;
                         });
                         moduleList.innerHTML += `<div class="module"><div class="module-header"><div class="module-num">${modNum}</div><div class="module-title">${mod.title}</div></div>${lecturesHtml}</div>`;
                     });
 
+                    // Update progress UI
+                    if (totalLectures > 0) {
+                        const percent = Math.round((completedCount / totalLectures) * 100);
+                        document.getElementById('courseProgressWidget').style.display = 'block';
+                        document.getElementById('progressBar').style.width = `${percent}%`;
+                        document.getElementById('progressPercent').textContent = `${percent}%`;
+                    }
+
                     document.querySelectorAll('.lecture-item').forEach(item => {
                         item.addEventListener('click', function () {
+                            const url = this.getAttribute('data-url');
+                            const resourcesUrl = this.getAttribute('data-resources');
+                            const title = this.querySelector('.lecture-name').textContent;
+
                             document.querySelectorAll('.lecture-item').forEach(l => l.classList.remove('active'));
                             this.classList.add('active');
-                            playVideo(this.getAttribute('data-url'));
+
+                            document.getElementById('activeLectureTitle').textContent = title;
+                            playVideo(url, resourcesUrl);
                         });
                     });
 
                     if (firstLectureUrl) {
                         const firstItem = document.querySelector('.lecture-item');
-                        if (firstItem) { firstItem.classList.add('active'); playVideo(firstLectureUrl); }
+                        if (firstItem) {
+                            const firstResUrl = firstItem.getAttribute('data-resources');
+                            firstItem.classList.add('active');
+                            document.getElementById('activeLectureTitle').textContent = firstItem.querySelector('.lecture-name').textContent;
+                            playVideo(firstLectureUrl, firstResUrl);
+                        }
                     }
                 }
             } catch (err) { console.error(err); }
@@ -598,7 +704,7 @@
 
         async function enrollInCourse(id) {
             try {
-                const res = await fetch(`http://127.0.0.1:8000/api/courses/${id}/enroll/`, {
+                const res = await fetch(getAPIUrl(`/api/courses/${id}/enroll/`), {
                     method: 'POST',
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
@@ -606,12 +712,41 @@
             } catch (err) { console.error(err); }
         }
 
+        async function toggleComplete(lectureId, btn) {
+            try {
+                const res = await fetch(getAPIUrl(`/api/progress/mark/${lectureId}/`), {
+                    method: 'POST',
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data.completed) {
+                        btn.classList.add('completed');
+                    } else {
+                        btn.classList.remove('completed');
+                    }
+                    // Refresh progress bar calculation
+                    updateOverallProgress();
+                }
+            } catch (err) { console.error(err); }
+        }
+
+        function updateOverallProgress() {
+            const all = document.querySelectorAll('.check-btn');
+            const completed = document.querySelectorAll('.check-btn.completed');
+            if (all.length > 0) {
+                const percent = Math.round((completed.length / all.length) * 100);
+                document.getElementById('progressBar').style.width = `${percent}%`;
+                document.getElementById('progressPercent').textContent = `${percent}%`;
+            }
+        }
+
         async function submitReview() {
             const rating = document.getElementById('reviewRating').value;
             const comment = document.getElementById('reviewComment').value;
             if (!comment) return alert('Feedback required.');
             try {
-                const res = await fetch(`http://127.0.0.1:8000/api/courses/${courseId}/review/`, {
+                const res = await fetch(getAPIUrl(`/api/courses/${courseId}/review/`), {
                     method: 'POST',
                     headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
                     body: JSON.stringify({ rating, comment })
@@ -620,18 +755,51 @@
             } catch (err) { console.error(err); }
         }
 
-        function playVideo(url) {
+        function playVideo(url, resourcesUrl) {
             const container = document.getElementById('videoContainer');
             if (!url || url === 'null') return;
+
+            let resourcesBtn = '';
+            if (resourcesUrl && resourcesUrl !== 'null' && resourcesUrl !== 'undefined') {
+                resourcesBtn = `
+                    <a href="${resourcesUrl}" target="_blank" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.8rem; background: rgba(59, 130, 246, 0.2); border: 1px solid var(--primary); text-decoration: none; color: white; border-radius: 8px; backdrop-filter: blur(8px); display: flex; align-items: center; gap: 8px;">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+                            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+                        </svg>
+                        <span>Related Resource</span>
+                    </a>
+                `;
+            }
 
             if (url.includes('youtube.com') || url.includes('youtu.be')) {
                 const videoId = getYouTubeId(url);
                 if (videoId) {
-                    container.innerHTML = `<iframe width="100%" height="100%" style="border: none;" src="https://www.youtube.com/embed/${videoId}?autoplay=1" allowfullscreen></iframe>`;
+                    container.innerHTML = `
+                        <iframe width="100%" height="100%" style="border: none; border-radius: 12px; background: #000;" 
+                            src="https://www.youtube.com/embed/${videoId}?autoplay=1&mute=0&rel=0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen></iframe>
+                        <div style="position: absolute; bottom: 20px; right: 20px; z-index: 10; display: flex; gap: 10px;">
+                            ${resourcesBtn}
+                            <a href="${url}" target="_blank" class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.8rem; background: rgba(0,0,0,0.6); border: 1px solid var(--glass-border); text-decoration: none; color: white; border-radius: 8px; backdrop-filter: blur(8px); display: flex; align-items: center; gap: 8px;">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3"/>
+                                </svg>
+                                <span>External Player</span>
+                            </a>
+                        </div>`;
                     return;
                 }
             }
-            container.innerHTML = `<video width="100%" height="100%" controls autoplay style="object-fit: contain;"><source src="${url}" type="video/mp4"></video>`;
+            container.innerHTML = `
+                <video width="100%" height="100%" controls autoplay style="object-fit: contain;">
+                    <source src="${url}" type="video/mp4">
+                </video>
+                <div style="position: absolute; bottom: 20px; right: 20px; z-index: 10;">
+                    ${resourcesBtn}
+                </div>
+            `;
         }
 
         function getYouTubeId(url) {

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificates | Johith Kumar</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .cert-card {
+            background: var(--dark-surface);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 1.5rem;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .cert-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .cert-img-container {
+            width: 100%;
+            height: 250px;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #1e293b; /* Skeleton color */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--glass-border);
+            position: relative;
+        }
+
+        /* Pulse animation for skeleton */
+        .cert-img-container::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+            animation: skeleton-pulse 1.5s infinite;
+        }
+
+        @keyframes skeleton-pulse {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .cert-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            z-index: 1;
+            display: block;
+        }
+
+        .cert-img-container img.loaded {
+            opacity: 1;
+        }
+
+        /* Hide skeleton once image is loaded */
+        .cert-img-container.loaded::before {
+            display: none;
+        }
+
+        .cert-card:hover .cert-img-container img {
+            transform: scale(1.05);
+        }
+
+        .cert-title {
+            font-size: 1.25rem;
+            color: var(--text-white);
+            margin-bottom: 0.5rem;
+        }
+
+        .cert-issuer {
+            font-size: 0.9rem;
+            color: var(--secondary);
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <a href="index.html" class="logo">RVNRJK</a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="skills.html">Skills</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="education.html">Education</a></li>
+            <li><a href="certificates.html" class="active">Certificates</a></li>
+            <li><a href="resume.html">Resume</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <header class="page-header">
+        <div class="container">
+            <h1>Certifications & Awards</h1>
+            <p class="subtitle">Validating skills and expanding knowledge.</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="content-grid">
+            <!-- Cert 6: Cloud Computing -->
+            <div class="cert-card reveal stagger-1">
+                <div class="cert-img-container">
+                    <img src="cert_cloud.jpg" alt="Cloud Computing Certificate" fetchpriority="high" loading="eager">
+                </div>
+                <div>
+                    <h3 class="cert-title">Cloud Computing</h3>
+                    <p class="cert-issuer">NPTEL Online Certification</p>
+                </div>
+                <a href="https://drive.google.com/file/d/1SW3d4F8shYQTPYP2G1Nxmy2RfLNME2DJ/view?usp=drive_link" target="_blank" class="btn btn-outline" style="text-align: center; padding: 0.75rem;">View Original Document</a>
+            </div>
+
+            <!-- Cert 2: Programming Using C++ -->
+            <div class="cert-card reveal stagger-2">
+                <div class="cert-img-container">
+                    <img src="cert_cpp.jpg" alt="Programming Using C++ Certificate" fetchpriority="high" loading="eager">
+                </div>
+                <div>
+                    <h3 class="cert-title">Programming Using C++</h3>
+                    <p class="cert-issuer">Infosys Springboard</p>
+                </div>
+                <a href="https://drive.google.com/file/d/1WlsbeeiOvX9GjeHT1d_dGu4cni7KSuzN/view?usp=drive_link" target="_blank" class="btn btn-outline" style="text-align: center; padding: 0.75rem;">View Original Document</a>
+            </div>
+
+            <!-- Cert 3: ChatGPT-4 Prompt Engineering -->
+            <div class="cert-card reveal stagger-3">
+                <div class="cert-img-container">
+                    <img src="cert_prompt.jpg" alt="ChatGPT-4 Prompt Engineering Certificate" fetchpriority="high" loading="eager">
+                </div>
+                <div>
+                    <h3 class="cert-title">ChatGPT-4 Prompt Engineering</h3>
+                    <p class="cert-issuer">Infosys Springboard</p>
+                </div>
+                <a href="https://drive.google.com/file/d/1a6U8cjhqQ05k8ss89Lr2-thgGb7F9von/view?usp=drive_link" target="_blank" class="btn btn-outline" style="text-align: center; padding: 0.75rem;">View Original Document</a>
+            </div>
+
+            <!-- Cert 4: Computational Theory -->
+            <div class="cert-card reveal stagger-4">
+                <div class="cert-img-container">
+                    <img src="cert_theory.jpg" alt="Computational Theory Certificate">
+                </div>
+                <div>
+                    <h3 class="cert-title">Computational Theory</h3>
+                    <p class="cert-issuer">Infosys Springboard</p>
+                </div>
+                <a href="https://drive.google.com/file/d/1-71BDZHt4_3ioaLuv6u-ioNvhz8cCftT/view?usp=drive_link" target="_blank" class="btn btn-outline" style="text-align: center; padding: 0.75rem;">View Original Document</a>
+            </div>
+
+            <!-- Cert 1: Peer-to-Peer Protocols -->
+            <div class="cert-card reveal stagger-5">
+                <div class="cert-img-container">
+                    <img src="cert_p2p.jpg" alt="Peer-to-Peer Protocols & LAN Certificate">
+                </div>
+                <div>
+                    <h3 class="cert-title">Peer-to-Peer Protocols & LAN</h3>
+                    <p class="cert-issuer">Coursera</p>
+                </div>
+                <a href="https://drive.google.com/file/d/105sHBKhZ6rnUlJ2g31w1fAiILHC4ewvd/view?usp=drive_link" target="_blank" class="btn btn-outline" style="text-align: center; padding: 0.75rem;">View Original Document</a>
+            </div>
+
+            <!-- Cert 5: Top 10 Writers -->
+            <div class="cert-card reveal stagger-6">
+                <div class="cert-img-container">
+                    <img src="cert_writer.jpg" alt="Top 10 Writers Achievement">
+                </div>
+                <div>
+                    <h3 class="cert-title">Top 10 Writers in India</h3>
+                    <p class="cert-issuer">Indian Film House</p>
+                </div>
+                <a href="https://drive.google.com/file/d/1SIJsYuEjB03xjmRVUouRs03fY5IoMX6_/view?usp=drive_link" target="_blank" class="btn btn-outline" style="text-align: center; padding: 0.75rem;">View Original Document</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p style="color: var(--text-slate);">&copy; 2024 R.V.N.R. Johith Kumar.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Optimization: Handle image loading states for "precise" appearance
+        document.querySelectorAll('.cert-img-container img').forEach(img => {
+            const container = img.closest('.cert-img-container');
+            if (img.complete) {
+                img.classList.add('loaded');
+                container.classList.add('loaded');
+            } else {
+                img.addEventListener('load', () => {
+                    img.classList.add('loaded');
+                    container.classList.add('loaded');
+                });
+            }
+        });
+    </script>
+    <script src="script.js"></script>
+</body>
+
+</html>

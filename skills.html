@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skills | Johith Kumar</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .skill-group {
+            margin-bottom: 3rem;
+        }
+
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .skill-chip {
+            background: var(--dark-surface);
+            border: 1px solid var(--glass-border);
+            padding: 0.8rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .skill-chip:hover {
+            border-color: var(--primary);
+            background: rgba(99, 102, 241, 0.1);
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <a href="index.html" class="logo">RVNRJK</a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="skills.html" class="active">Skills</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="education.html">Education</a></li>
+            <li><a href="certificates.html">Certificates</a></li>
+            <li><a href="resume.html">Resume</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <header class="page-header">
+        <div class="container">
+            <h1>Analytical Toolkit</h1>
+            <p class="subtitle">Turning raw data into visual stories and strategic insights.</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="skill-group reveal stagger-1">
+            <h3>Programming Languages</h3>
+            <div class="skill-list">
+                <div class="skill-chip">C++ (DSA)</div>
+                <div class="skill-chip">Python (ML focus)</div>
+                <div class="skill-chip">Java</div>
+                <div class="skill-chip">C</div>
+            </div>
+        </div>
+
+        <div class="skill-group reveal stagger-2">
+            <h3>Web Development</h3>
+            <div class="skill-list">
+                <div class="skill-chip">HTML5 / CSS3</div>
+                <div class="skill-chip">JavaScript (ES6+)</div>
+                <div class="skill-chip">REST APIs</div>
+                <div class="skill-chip">DOM Manipulation</div>
+                <div class="skill-chip">Responsive Design</div>
+            </div>
+        </div>
+
+        <div class="skill-group reveal stagger-3">
+            <h3>Data Science & Visualization</h3>
+            <div class="skill-list">
+                <div class="skill-chip">NumPy</div>
+                <div class="skill-chip">Pandas</div>
+                <div class="skill-chip">Matplotlib / Seaborn</div>
+                <div class="skill-chip">TensorFlow</div>
+                <div class="skill-chip">Power BI</div>
+                <div class="skill-chip">SQL (MySQL)</div>
+            </div>
+        </div>
+
+        <div class="skill-group reveal stagger-4">
+            <h3>Professional Tools</h3>
+            <div class="skill-list">
+                <div class="skill-chip">Git / GitHub</div>
+                <div class="skill-chip">Microsoft Excel (Advanced)</div>
+                <div class="skill-chip">Problem Solving</div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p style="color: var(--text-slate);">&copy; 2024 R.V.N.R. Johith Kumar.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects | Johith Kumar</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .project-meta {
+            margin: 1rem 0;
+            font-size: 0.9rem;
+            color: var(--text-slate);
+        }
+
+        .tech-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--secondary);
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <a href="index.html" class="logo">RVNRJK</a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="skills.html">Skills</a></li>
+            <li><a href="projects.html" class="active">Projects</a></li>
+            <li><a href="education.html">Education</a></li>
+            <li><a href="certificates.html">Certificates</a></li>
+            <li><a href="resume.html">Resume</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <header class="page-header" style="position: relative; overflow: hidden;">
+        <div class="container" style="position: relative; z-index: 2;">
+            <h1>Featured Work</h1>
+            <p class="subtitle">Turning complex ideas into functional realities.</p>
+        </div>
+        <!-- Decorative animated elements -->
+        <div style="position: absolute; top: -50px; left: 10%; width: 150px; height: 150px; background: var(--primary-glow); border-radius: 50%; filter: blur(50px); animation: float 6s ease-in-out infinite; z-index: 1;"></div>
+        <div style="position: absolute; bottom: -20px; right: 15%; width: 100px; height: 100px; background: rgba(96, 165, 250, 0.2); border-radius: 50%; filter: blur(40px); animation: float 8s ease-in-out infinite reverse; z-index: 1;"></div>
+    </header>
+
+    <main class="container">
+        <div class="content-grid">
+            <!-- Internship Project - Featured -->
+            <div class="card featured-card reveal reveal-scale stagger-1 hover-lift">
+                <div class="card-content">
+                    <span class="tag" style="margin-bottom: 1rem; display: inline-block;">Internship</span>
+                    <h3>World Currency Converter</h3>
+                    <p class="project-meta">Nov 2025 - Dec 2025</p>
+                    <p>Engineered a responsive web-based currency converter featuring real-time conversion via live APIs,
+                        local storage caching, and an intuitive UI.</p>
+                    <div class="tech-tags" style="margin-top: 1.5rem;">
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">REST APIs</span>
+                        <span class="tag">Local Storage</span>
+                        <span class="tag">Responsive UI</span>
+                    </div>
+                    <a href="https://github.com/JohithKumar/currency-converter" class="btn btn-primary"
+                        style="margin-top: 1.5rem; width: 100%; text-align: center;">View on GitHub</a>
+                </div>
+                <div class="card-visual">
+                    <div class="image-zoom-container" style="border-radius: 12px; background: #000; box-shadow: 0 10px 30px rgba(0,0,0,0.4); border: 1px solid var(--glass-border);">
+                        <img src="currency_converter_demo_trimmed.webp" alt="Currency Converter App Demo" style="width: 100%; display: block;" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- DS Project -->
+            <div class="card reveal reveal-scale stagger-2 hover-lift">
+                <h3>US Mortality Trends Analysis</h3>
+                <p class="project-meta">Mar 2025 - Apr 2025</p>
+                <p>An intensive data processing project cleaning large datasets with Pandas/NumPy and creating heatmaps
+                    to identify public health trends.</p>
+                <div class="tech-tags" style="margin-top: 1.5rem;">
+                    <span class="tag">Python</span>
+                    <span class="tag">Matplotlib</span>
+                    <span class="tag">EDA</span>
+                    <span class="tag">Jupyter</span>
+                </div>
+                <div style="margin-top: 1rem; display: flex; flex-direction: column; gap: 0.5rem;">
+                    <div class="image-zoom-container" style="border-radius: 10px; background: #000; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
+                        <img src="us_mortality_1.png" alt="Obesity and Nutrition Analysis chart 1" style="width: 100%; display: block;" />
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+                        <div class="image-zoom-container" style="border-radius: 8px; background: #000; box-shadow: 0 2px 8px rgba(0,0,0,0.2);">
+                            <img src="us_mortality_2.png" alt="Obesity and Nutrition Analysis chart 2" style="width: 100%; display: block;" />
+                        </div>
+                        <div class="image-zoom-container" style="border-radius: 8px; background: #000; box-shadow: 0 2px 8px rgba(0,0,0,0.2);">
+                            <img src="us_mortality_3.png" alt="Obesity and Nutrition Analysis chart 3" style="width: 100%; display: block;" />
+                        </div>
+                        <div class="image-zoom-container" style="border-radius: 8px; background: #000; box-shadow: 0 2px 8px rgba(0,0,0,0.2);">
+                            <img src="us_mortality_4.png" alt="Obesity and Nutrition Analysis chart 4" style="width: 100%; display: block;" />
+                        </div>
+                        <div class="image-zoom-container" style="border-radius: 8px; background: #000; box-shadow: 0 2px 8px rgba(0,0,0,0.2);">
+                            <img src="us_mortality_5.png" alt="Obesity and Nutrition Analysis chart 5" style="width: 100%; display: block;" />
+                        </div>
+                    </div>
+                </div>
+                <a href="https://github.com/JohithKumar/predictive-analytics" class="btn btn-outline"
+                    style="margin-top: 1rem; width: 100%; text-align: center;">View Analysis</a>
+            </div>
+
+            <!-- Excel Project -->
+            <div class="card reveal reveal-scale stagger-3 hover-lift">
+                <h3>Excel Analytic Hub</h3>
+                <p class="project-meta">Mar 2025 - Apr 2025</p>
+                <p>Automated complex calculation workflows, achieving 95% accuracy using advanced formulas and
+                    interactive dashboards in Excel.</p>
+                <div class="tech-tags" style="margin-top: 1.5rem;">
+                    <span class="tag">Excel Analytics</span>
+                    <span class="tag">Dashboards</span>
+                    <span class="tag">Pivot Tables</span>
+                </div>
+                <div class="image-zoom-container" style="margin-top: 1rem; border-radius: 10px; background: #000; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
+                    <video src="excel_analytic_preview.mp4" autoplay loop muted playsinline style="width: 100%; display: block;"></video>
+                </div>
+                <a href="https://github.com/JohithKumar/Excal-project" class="btn btn-outline" style="margin-top: 1rem; width: 100%; text-align: center;">View
+                    Case Study</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p style="color: var(--text-slate);">&copy; 2024 R.V.N.R. Johith Kumar.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
