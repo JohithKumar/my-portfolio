@@ -1,6 +1,6 @@
 from .models import *
 from .serializers import *
-from enrollments.models import Enrollment
+from enrollments.models import Enrollment, LectureProgress
 from reviews.models import Review
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
@@ -95,19 +95,38 @@ def course_detail_full(request, id):
     except Course.DoesNotExist:
         return Response({'error': 'Course not found'}, status=404)
         
+    is_enrolled = Enrollment.objects.filter(student_id=request.user, course_id=course).exists()
+    
     modules = Module.objects.filter(course_id=course).order_by('order')
     modules_data = []
     for mod in modules:
         lectures = Lecture.objects.filter(module_id=mod).order_by('order')
-        lectures_data = [{"id": l.id, "title": l.title, "video_url": l.video_url, "duration": l.duration, "type": l.lecture_type} for l in lectures]
+        lectures_data = []
+        for l in lectures:
+            completed = False
+            if is_enrolled:
+                completed = LectureProgress.objects.filter(
+                    enrollment_id__student_id=request.user, 
+                    lecture_id=l, 
+                    completed=True
+                ).exists()
+            
+            lectures_data.append({
+                "id": l.id, 
+                "title": l.title, 
+                "video_url": l.video_url, 
+                "resources_url": l.resources_url,
+                "duration": l.duration, 
+                "type": l.lecture_type,
+                "completed": completed
+            })
+            
         modules_data.append({
             "id": mod.id,
             "title": mod.title,
             "order": mod.order,
             "lectures": lectures_data
         })
-        
-    is_enrolled = Enrollment.objects.filter(student_id=request.user, course_id=course).exists()
     
     reviews = Review.objects.filter(course_id=course).order_by('-created_at')
     reviews_data = [{

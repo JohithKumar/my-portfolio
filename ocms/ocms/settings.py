@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-_$o)%05l42fm%z1%6%riew+@)-k@too1yra2ls1+hyu9of9#_@
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -144,11 +144,8 @@ REST_FRAMEWORK = {
 }
 CACHES = {
     "default": {
-        "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://127.0.0.1:6380/1",
-        "OPTIONS": {
-            "CLIENT_CLASS": "django_redis.client.DefaultClient",
-        }
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        "LOCATION": "unique-snowflake",
     }
 }
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

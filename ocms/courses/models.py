@@ -32,6 +32,7 @@ class Lecture(models.Model):
     module_id = models.ForeignKey(Module, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     video_url = models.URLField(max_length=500, null=True, blank=True)
+    resources_url = models.URLField(max_length=500, null=True, blank=True)
     lecture_type = models.CharField(max_length=20, default='video') # video, lab, quiz
     notes = models.TextField()
     order = models.IntegerField()

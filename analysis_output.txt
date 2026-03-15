@@ -1,0 +1,40 @@
+Format: WEBP, Size: (1554, 921), Mode: RGBA
+Total frames: 602
+Frame samples (every 20th frame):
+Frame   0: RGB=(248, 248, 248), duration=100ms
+Frame  20: RGB=(230, 231, 233), duration=100ms
+Frame  40: RGB=(237, 238, 240), duration=100ms
+Frame  60: RGB=(237, 238, 240), duration=100ms
+Frame  80: RGB=(224, 226, 228), duration=100ms
+Frame 100: RGB=(227, 229, 229), duration=100ms
+Frame 120: RGB=(227, 229, 229), duration=100ms
+Frame 140: RGB=(214, 218, 220), duration=100ms
+Frame 160: RGB=(232, 233, 235), duration=100ms
+Frame 180: RGB=(232, 233, 235), duration=100ms
+Frame 200: RGB=(232, 233, 235), duration=100ms
+Frame 220: RGB=(233, 234, 235), duration=100ms
+Frame 240: RGB=(232, 234, 235), duration=100ms
+Frame 260: RGB=(231, 233, 236), duration=100ms
+Frame 280: RGB=(232, 233, 236), duration=100ms
+Frame 300: RGB=(230, 231, 234), duration=100ms
+Frame 320: RGB=(230, 231, 234), duration=100ms
+Frame 340: RGB=(231, 232, 234), duration=100ms
+Frame 360: RGB=(231, 232, 234), duration=100ms
+Frame 380: RGB=(154, 152, 200), duration=100ms
+Frame 400: RGB=(155, 152, 200), duration=100ms
+Frame 420: RGB=(155, 152, 200), duration=100ms
+Frame 440: RGB=(156, 154, 203), duration=100ms
+Frame 460: RGB=(156, 154, 203), duration=100ms
+Frame 480: RGB=(156, 153, 203), duration=100ms
+Frame 500: RGB=(156, 154, 203), duration=100ms
+Frame 520: RGB=(162, 158, 208), duration=100ms
+Frame 540: RGB=(154, 151, 200), duration=100ms
+Frame 560: RGB=(154, 152, 201), duration=100ms
+Frame 580: RGB=(154, 152, 201), duration=100ms
+Frame 600: RGB=(155, 152, 201), duration=100ms
+
+Major changes detected at frames:
+Frame  29: Dist=35.9
+Frame  49: Dist=37.1
+Frame 149: Dist=35.3
+Frame 364: Dist=115.5

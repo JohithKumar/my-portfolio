@@ -75,6 +75,7 @@ def user_detail(request, id):
 @csrf_exempt
 @api_view(['POST', 'OPTIONS'])
 @permission_classes([AllowAny])
+@authentication_classes([])
 def custom_token_obtain(request):
     if request.method == 'OPTIONS':
         return Response(status=200)
@@ -82,39 +83,63 @@ def custom_token_obtain(request):
     try:
         raw_email = request.data.get('email')
         password = request.data.get('password')
-        email = raw_email.lower() if raw_email else None
         
-        print(f"DEBUG: Login attempt for {email} (raw: {raw_email})")
+        print(f"DEBUG: --- Login Attempt Start ---")
+        print(f"DEBUG: raw_email='{raw_email}', password_len={len(password) if password else 0}")
+        print(f"DEBUG: Request content_type={request.content_type}")
+        print(f"DEBUG: Request headers={dict(request.headers)}")
+        
+        if not raw_email or not password:
+            print("DEBUG: Missing email or password")
+            return Response({"detail": "Email and password are required"}, status=400)
+
+        email = raw_email.lower().strip()
+        print(f"DEBUG: Normalized email='{email}'")
         
         # Try multiple authentication patterns
         user = authenticate(username=email, password=password)
         if not user:
+            print(f"DEBUG: authenticate(username={email}) failed")
             user = authenticate(email=email, password=password)
         if not user:
-            user = authenticate(username=raw_email, password=password)
+            print(f"DEBUG: authenticate(email={email}) failed")
+            user = authenticate(username=raw_email.strip(), password=password)
         if not user:
-            user = authenticate(email=raw_email, password=password)
+            print(f"DEBUG: authenticate(username={raw_email.strip()}) failed")
+
+        # FALLBACK: Direct DB check if authenticate fails but data exists
+        if not user:
+            print("DEBUG: authenticate() failed, trying direct DB check...")
+            user_obj = User.objects.filter(email__iexact=email).first()
+            if user_obj:
+                from django.contrib.auth.hashers import check_password
+                if user_obj.check_password(password):
+                    print(f"DEBUG: Direct DB check SUCCESS for {user_obj.email}")
+                    user = user_obj
+                else:
+                    print(f"DEBUG: Direct DB check FAILED (Password mismatch) for {user_obj.email}")
+            else:
+                print(f"DEBUG: Direct DB check FAILED (User not found) for {email}")
 
         if user:
-            print(f"DEBUG: Auth SUCCESS for {user.email}")
+            if not user.is_active:
+                print(f"DEBUG: Auth SUCCESS but user.is_active is False")
+                return Response({"detail": "Account is inactive"}, status=401)
+                
+            print(f"DEBUG: Final Auth SUCCESS for {user.email}")
             refresh = RefreshToken.for_user(user)
             return Response({
                 'refresh': str(refresh),
                 'access': str(refresh.access_token),
             })
         else:
-            print(f"DEBUG: Auth FAILED for {email}")
-            # Additional DB check for debugging
-            try:
-                user_obj = User.objects.filter(email__iexact=email).first()
-                if user_obj:
-                    print(f"DEBUG: User exists but auth failed. Active: {user_obj.is_active}, Hashed: {user_obj.password.startswith('pbkdf2_sha256$')}")
-                else:
-                    print(f"DEBUG: User does not exist in database.")
-            except:
-                pass
-            return Response({"detail": "No active account found with the given credentials"}, status=401)
+            print(f"DEBUG: Final Auth FAILURE for {email}")
+            return Response({"detail": "Invalid credentials. Please contact support."}, status=401)
     except Exception as e:
-        with open('traceback.txt', 'w') as f:
-            f.write(traceback.format_exc())
-        return Response({"error": str(e)}, status=500)
+        tb = traceback.format_exc()
+        print(f"!!! LOGIN VIEW ERROR: {str(e)}\n{tb}")
+        return Response({
+            "error": str(e),
+            "traceback": tb,
+            "message": "Internal Server Error in custom_token_obtain"
+        }, status=500)

@@ -23,6 +23,17 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', TemplateView.as_view(template_name='index.html')),
+    path('index.html', TemplateView.as_view(template_name='index.html')),
+    path('login.html', TemplateView.as_view(template_name='login.html')),
+    path('register.html', TemplateView.as_view(template_name='register.html')),
+    path('courses.html', TemplateView.as_view(template_name='courses.html')),
+    path('course_detail.html', TemplateView.as_view(template_name='course_detail.html')),
+    path('reviews.html', TemplateView.as_view(template_name='reviews.html')),
+    path('profile.html', TemplateView.as_view(template_name='profile.html')),
+    path('dashboard.html', TemplateView.as_view(template_name='dashboard.html')),
+    # Handle relative 'index.html' from the old directory-style course-detail path
+    path('course-detail/index.html', TemplateView.as_view(template_name='index.html')),
+    # Original paths for backward compatibility if needed
     path('login/', TemplateView.as_view(template_name='login.html')),
     path('register/', TemplateView.as_view(template_name='register.html')),
     path('courses/', TemplateView.as_view(template_name='courses.html')),
