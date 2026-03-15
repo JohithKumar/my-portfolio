@@ -54,4 +54,25 @@ document.addEventListener('DOMContentLoaded', () => {
             img.classList.add('active');
         }
     });
+    // Mobile Menu Toggle
+    const mobileToggle = document.querySelector('.mobile-toggle');
+    const navLinksContainer = document.querySelector('.nav-links');
+
+    if (mobileToggle) {
+        mobileToggle.addEventListener('click', () => {
+            mobileToggle.classList.toggle('active');
+            navLinksContainer.classList.toggle('active');
+            document.body.style.overflow = navLinksContainer.classList.contains('active') ? 'hidden' : 'initial';
+        });
+
+        // Close menu when clicking links
+        const navItems = document.querySelectorAll('.nav-links a');
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                mobileToggle.classList.remove('active');
+                navLinksContainer.classList.remove('active');
+                document.body.style.overflow = 'initial';
+            });
+        });
+    }
 });
