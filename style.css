@@ -11,7 +11,7 @@
     --dark-surface: #1e293b;
     /* Slate Surface */
     --text-white: #f8fafc;
-    --text-slate: #94a3b8;
+    --text-slate: #cbd5e1; /* Brighter slate for better contrast */
     --glass-bg: rgba(30, 41, 59, 0.6);
     --glass-border: rgba(255, 255, 255, 0.08);
     --transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
@@ -52,6 +52,10 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     background-color: var(--dark-bg);
     color: var(--text-white);
@@ -59,6 +63,11 @@ body {
     line-height: 1.6;
     overflow-x: hidden;
     min-height: 100vh;
+}
+
+section {
+    padding: 100px 0;
+    scroll-margin-top: 80px;
 }
 
 h1,

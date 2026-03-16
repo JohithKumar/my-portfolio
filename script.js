@@ -28,10 +28,63 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Intersection Observer for scroll animations
-    const observerOptions = {
+    // Intersection Observer for active navigation links (Scroll Spy)
+    const sectionObserverOptions = {
         threshold: 0.1,
-        rootMargin: '0px 0px -20% 0px'
+        rootMargin: "-150px 0px -70% 0px" // Trigger when section is near the top
+    };
+
+    const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                const id = entry.target.getAttribute('id');
+                const activeNavLink = document.querySelector(`.nav-links a[href="#${id}"]`);
+                
+                if (activeNavLink) {
+                    navLinks.forEach(link => link.classList.remove('active'));
+                    activeNavLink.classList.add('active');
+                }
+            }
+        });
+    }, sectionObserverOptions);
+
+    const sections = document.querySelectorAll('section[id]');
+    sections.forEach(section => sectionObserver.observe(section));
+
+    // Handle all internal anchor links for "perfect" smooth scrolling
+    const allLinks = document.querySelectorAll('a[href^="#"]');
+    allLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            const hash = link.getAttribute('href');
+            if (hash === '#') return;
+            
+            e.preventDefault();
+            const target = document.querySelector(hash);
+            if (target) {
+                // Ensure mobile menu closes if open
+                const mobileToggle = document.querySelector('.mobile-toggle');
+                const navLinksContainer = document.querySelector('.nav-links');
+                if (mobileToggle && mobileToggle.classList.contains('active')) {
+                    mobileToggle.classList.remove('active');
+                    navLinksContainer.classList.remove('active');
+                    document.body.style.overflow = 'initial';
+                }
+
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+                
+                // Update URL hash without jumping
+                history.pushState(null, null, hash);
+            }
+        });
+    });
+
+    // Reveal Observer for scroll animations
+    const revealObserverOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -10% 0px'
     };
 
     const revealObserver = new IntersectionObserver((entries) => {
@@ -41,19 +94,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 revealObserver.unobserve(entry.target);
             }
         });
-    }, observerOptions);
+    }, revealObserverOptions);
 
     const revealElements = document.querySelectorAll('.reveal');
     revealElements.forEach(el => revealObserver.observe(el));
 
-    // Fix for Google Drive images "flickering" or loading slow
-    // We can pre-trigger the reveal for top images to make them appear "fast and precise"
-    const topImages = document.querySelectorAll('.cert-card.reveal');
-    topImages.forEach((img, index) => {
-        if (index < 3) { // Show first row immediately
-            img.classList.add('active');
+    // Handle initial fragment if present on load
+    if (window.location.hash) {
+        const targetSection = document.querySelector(window.location.hash);
+        if (targetSection) {
+            setTimeout(() => {
+                targetSection.scrollIntoView({ behavior: 'smooth' });
+            }, 600);
         }
-    });
+    }
+
     // Mobile Menu Toggle
     const mobileToggle = document.querySelector('.mobile-toggle');
     const navLinksContainer = document.querySelector('.nav-links');
@@ -63,16 +118,6 @@ document.addEventListener('DOMContentLoaded', () => {
             mobileToggle.classList.toggle('active');
             navLinksContainer.classList.toggle('active');
             document.body.style.overflow = navLinksContainer.classList.contains('active') ? 'hidden' : 'initial';
-        });
-
-        // Close menu when clicking links
-        const navItems = document.querySelectorAll('.nav-links a');
-        navItems.forEach(item => {
-            item.addEventListener('click', () => {
-                mobileToggle.classList.remove('active');
-                navLinksContainer.classList.remove('active');
-                document.body.style.overflow = 'initial';
-            });
         });
     }
 });
